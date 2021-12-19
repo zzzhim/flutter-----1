@@ -11,6 +11,8 @@ class _State extends State<DataType> {
   Widget build(BuildContext context) {
     _numType();
     _stringType();
+    _boolType();
+    _listType();
     return Container(
       child: Text('常用数据类型，请查看控制台输出'),
     );
@@ -46,5 +48,49 @@ class _State extends State<DataType> {
     // 常用方法
     print(str5.substring(0, 5));
     print(str5.indexOf('控制'));
+  }
+
+  // 布尔，Dart 是强 bool 类型检查，只有bool 类型的值是true 才被认为是 true
+  void _boolType() {
+    bool success = true, fail = false;
+
+    print(success);
+    print(fail);
+    print(success || fail); // true
+    print(success && fail); // true
+  }
+
+  // 集合
+  void _listType() {
+    print('-------_listType------');
+    // 集合初始的方式
+    List list1 = [1, 2, 3, '集合']; // 初始化时添加元素 默认类型 dynamic
+    print(list1);
+    List<int> list2 = [1, 2, 3]; // 指定元素为 int 类型
+    print(list2);
+
+    List list3 = [];
+
+    list3.add('list3'); // 通过add方法添加元素
+    list3.addAll(list1);
+
+    print(list3);
+
+    List list4 = List.generate(3, (index) => index * 2); // 生成函数生成集合
+
+    print(list4);
+
+    // 遍历集合
+    for (int i = 0; i < list3.length; i++) {
+      print(list3[i]);
+    }
+
+    for (var item in list3) {
+      print(item);
+    }
+
+    list3.forEach((element) {
+      print(element);
+    });
   }
 }
