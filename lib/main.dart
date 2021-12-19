@@ -84,6 +84,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
     print(stu2.toString());
 
+    StudyFlutter studyFlutter = StudyFlutter();
+
+    studyFlutter.study();
+
     print('--------_oopLearn------------');
   }
 }

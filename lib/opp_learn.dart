@@ -80,3 +80,16 @@ class Person {
     return 'name: $name, age:$age';
   }
 }
+
+// 继承抽象类要实现它的抽象方法，否则也需要将自己定义成抽象类
+class StudyFlutter extends Study {
+  @override
+  void study() {
+    print('Learning Flutter');
+  }
+}
+
+// 使用 abstract 修饰符来定义一个抽象类，该类不能被实例化。抽象类在定义接口的时候非常有用，实际上抽象中也包含一些实现
+abstract class Study {
+  void study();
+}
