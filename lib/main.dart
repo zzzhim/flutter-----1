@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data_type.dart';
+import 'package:flutter_application_1/function_learn.dart';
 import 'package:flutter_application_1/opp_learn.dart';
 
 void main() {
@@ -53,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     _oopLearn();
+    _functionLearn();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -89,5 +91,10 @@ class _MyHomePageState extends State<MyHomePage> {
     studyFlutter.study();
 
     print('--------_oopLearn------------');
+  }
+
+  void _functionLearn() {
+    TestFunction testFunction = TestFunction();
+    testFunction.start();
   }
 }
