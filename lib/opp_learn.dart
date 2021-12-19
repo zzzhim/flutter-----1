@@ -17,6 +17,12 @@ class Student extends Person {
         super(name, age) {
     print('构造方法体不是必须的');
   }
+
+  // 命名构造方法: [类名+.+方法名]
+  // 使用命名构造方法为类实现多个构造方法
+  Student.cover(Student stu) : super(stu.name, stu.age) {
+    print('命名构造方法');
+  }
 }
 
 // 定义一个Dart类，所有的类都继承自Object
