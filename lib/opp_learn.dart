@@ -23,6 +23,12 @@ class Student extends Person {
   Student.cover(Student stu) : super(stu.name, stu.age) {
     print('命名构造方法');
   }
+
+  // 命名工厂构造方法：factory [类型+.+方法名]
+  // 它可以有返回值，而且不需要将类的final变量作为参数，是提供一种灵活获取类对象的方式。
+  factory Student.stu(Student stu) {
+    return Student(stu._school, stu.name, stu.age);
+  }
 }
 
 // 工厂构造方法：
