@@ -14,6 +14,7 @@ class _State extends State<DataType> {
     _boolType();
     _listType();
     _mapType();
+    _tips();
     return Container(
       child: Text('常用数据类型，请查看控制台输出'),
     );
@@ -127,5 +128,28 @@ class _State extends State<DataType> {
     for (var i in ages.keys) {
       print('$i ${ages[i]} for-in');
     }
+  }
+
+  // 小知识: dynamic var Object
+  void _tips() {
+    print('--------------_tips--------------');
+
+    // dynamic 动态类型
+    dynamic x = 'hal';
+    print(x.runtimeType);
+    x = 1;
+    print(x.runtimeType);
+
+    // var 自动判断数据类型，不可以修改数据类型
+    var a = 'hal';
+    print(a.runtimeType);
+    // a = 123; // 报错
+
+    // Object Dart的基类
+    Object obj = '111';
+    print(obj.runtimeType);
+    print(obj);
+
+    // 不能调用当前数据类型不存在的方法
   }
 }
