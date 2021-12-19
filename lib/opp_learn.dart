@@ -18,6 +18,24 @@ class Student extends Person {
     print('构造方法体不是必须的');
   }
 
+  @override
+  String toString() {
+    return 'name: $name school:${this._school} city: $city country: $country ${super.toString()}';
+  }
+
+  // 可以为私有字段设置getter来让外界获取到私有字段
+  String? get school => _school;
+
+  // 可以为私有字段设置setter来控制外界对私有字段的修改
+  set school(String? value) {
+    _school = value;
+  }
+
+  // 静态方法
+  static doPrint(String str) {
+    print('doPrint: $str');
+  }
+
   // 命名构造方法: [类名+.+方法名]
   // 使用命名构造方法为类实现多个构造方法
   Student.cover(Student stu) : super(stu.name, stu.age) {

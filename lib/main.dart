@@ -59,8 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: ListView(
-          children: <Widget>[DataType()],
-        ),
+            // children: <Widget>[DataType()],
+            ),
       ),
     );
   }
@@ -71,6 +71,18 @@ class _MyHomePageState extends State<MyHomePage> {
     Logger log1 = Logger();
     Logger log2 = Logger();
     print(log1 == log2);
+
+    Student.doPrint('_oopLearn');
+
+    // 创建 Student 的对象
+    Student stu1 = Student('家里蹲', 'zzzhim', 18);
+    stu1.school = '985';
+
+    print(stu1.toString());
+
+    Student stu2 = Student('家里蹲2', 'zzzhim', 16, city: '上海', country: '中国');
+
+    print(stu2.toString());
 
     print('--------_oopLearn------------');
   }
