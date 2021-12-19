@@ -93,3 +93,15 @@ class StudyFlutter extends Study {
 abstract class Study {
   void study();
 }
+
+// 为类添加特征：mixins
+// mixins 是在多个类层次结构中重用代码的一种方式
+// 要使用mixins，在with关键字后面跟上一个或多个mixin 的名字（用逗号分隔）
+// mixins的特征：实现 mixin，就创建一个继承 Object 类的子类（不能继承其他类），不声明任何构造方法，不调用 super
+
+class Test extends Person with Study {
+  Test(String name, int age) : super(name, age);
+
+  @override
+  void study() {}
+}
