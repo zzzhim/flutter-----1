@@ -25,6 +25,25 @@ class Student extends Person {
   }
 }
 
+// 工厂构造方法：
+// 不仅仅是构造方法，更是一种模式
+// 有时候为了返回一个之前已经创建的缓存对象，原始的构造方法已经不能满足要求
+// 那么可以使用工厂模式来定义构造方法
+class Logger {
+  static Logger? _cache;
+  factory Logger() {
+    _cache ??= Logger._internal();
+
+    return _cache!;
+  }
+
+  Logger._internal();
+
+  void log(String msg) {
+    print(msg);
+  }
+}
+
 // 定义一个Dart类，所有的类都继承自Object
 class Person {
   String? name;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data_type.dart';
+import 'package:flutter_application_1/opp_learn.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,12 +52,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    _oopLearn();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -67,5 +63,15 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  void _oopLearn() {
+    print('--------_oopLearn------------');
+
+    Logger log1 = Logger();
+    Logger log2 = Logger();
+    print(log1 == log2);
+
+    print('--------_oopLearn------------');
   }
 }
