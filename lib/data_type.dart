@@ -13,6 +13,7 @@ class _State extends State<DataType> {
     _stringType();
     _boolType();
     _listType();
+    _mapType();
     return Container(
       child: Text('常用数据类型，请查看控制台输出'),
     );
@@ -92,5 +93,39 @@ class _State extends State<DataType> {
     list3.forEach((element) {
       print(element);
     });
+  }
+
+  // map是将key和value相关联的对象，key和value都可以是任何类型的对象，并且key是唯一的如果key重复后面添加的key会替换前面的key
+  void _mapType() {
+    print('---------__mapType------------');
+    // map初始化
+    Map names = {
+      'xiaoming': '小明',
+      'xiaohong': '小红',
+    };
+
+    print(names);
+
+    Map ages = {};
+
+    ages['xiaoming'] = 16;
+    ages['xiaohong'] = 18;
+
+    print(ages);
+
+    // Map遍历方式
+    ages.forEach((key, value) {
+      print('$key, $value');
+    });
+
+    Map ages2 = ages.map((key, value) {
+      return MapEntry(value, key);
+    });
+
+    print(ages2);
+
+    for (var i in ages.keys) {
+      print('$i ${ages[i]} for-in');
+    }
   }
 }
