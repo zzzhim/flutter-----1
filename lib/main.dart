@@ -3,9 +3,11 @@ import 'package:flutter_application_1/data_type.dart';
 import 'package:flutter_application_1/function_learn.dart';
 import 'package:flutter_application_1/generic_learn.dart';
 import 'package:flutter_application_1/opp_learn.dart';
+import 'package:flutter_application_1/plugin_use.dart';
 
 void main() {
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  runApp(const PluginUse());
 }
 
 class MyApp extends StatelessWidget {
