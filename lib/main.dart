@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data_type.dart';
 import 'package:flutter_application_1/function_learn.dart';
 import 'package:flutter_application_1/generic_learn.dart';
+import 'package:flutter_application_1/less_group_page.dart';
 import 'package:flutter_application_1/opp_learn.dart';
 import 'package:flutter_application_1/plugin_use.dart';
+import 'package:flutter_application_1/statefull_group_page.dart';
 
 void main() {
   // runApp(const MyApp());
-  runApp(const PluginUse());
+  runApp(const StateFulGroup());
 }
 
 class MyApp extends StatelessWidget {
