@@ -9,8 +9,8 @@ import 'package:flutter_application_1/plugin_use.dart';
 import 'package:flutter_application_1/statefull_group_page.dart';
 
 void main() {
-  // runApp(const MyApp());
-  runApp(const FlutterLayoutPage());
+  runApp(const MyApp());
+  // runApp(const FlutterLayoutPage());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,26 +20,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter 必备Dart基础',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter 必备Dart基础'),
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        // home: const RouteNavigator(title: 'Flutter 必备Dart基础'),
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('如何创建和使用Flutter的路由与导航'),
+          ),
+          body: RouteNavigator(),
+        ),
+        routes: <String, WidgetBuilder>{
+          'plugin': (BuildContext context) => PluginUse(),
+          'less': (BuildContext context) => LessGroupPage(),
+          'ful': (BuildContext context) => StateFulGroup(),
+          'layout': (BuildContext context) => FlutterLayoutPage(),
+        });
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class RouteNavigator extends StatefulWidget {
+  // const RouteNavigator({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -50,60 +52,50 @@ class MyHomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title;
+  // final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<RouteNavigator> createState() => _RouteNavigatorState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _RouteNavigatorState extends State<RouteNavigator> {
+  bool byName = false;
+
   @override
   Widget build(BuildContext context) {
-    _oopLearn();
-    _functionLearn();
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: ListView(
-            // children: <Widget>[DataType()],
-            ),
+    return Container(
+      child: Column(
+        children: <Widget>[
+          SwitchListTile(
+              title: Text('${byName ? "" : "不"}通过路由名跳转'),
+              value: byName,
+              onChanged: (value) {
+                setState(() {
+                  byName = value;
+                });
+              }),
+          _item('PluginUse', PluginUse(), 'plugin'),
+          _item('LessGroupPage', LessGroupPage(), 'less'),
+          _item('StateFulGroup', StateFulGroup(), 'ful'),
+          _item('FlutterLayoutPage', FlutterLayoutPage(), 'layout'),
+        ],
       ),
     );
   }
 
-  void _oopLearn() {
-    print('--------_oopLearn------------');
-
-    Logger log1 = Logger();
-    Logger log2 = Logger();
-    print(log1 == log2);
-
-    Student.doPrint('_oopLearn');
-
-    // 创建 Student 的对象
-    Student stu1 = Student('家里蹲', 'zzzhim', 18);
-    stu1.school = '985';
-
-    print(stu1.toString());
-
-    Student stu2 = Student('家里蹲2', 'zzzhim', 16, city: '上海', country: '中国');
-
-    print(stu2.toString());
-
-    StudyFlutter studyFlutter = StudyFlutter();
-
-    studyFlutter.study();
-
-    print('--------_oopLearn------------');
-  }
-
-  void _functionLearn() {
-    TestFunction testFunction = TestFunction();
-    testFunction.start();
-
-    TestGeneric testGeneric = TestGeneric();
-    testGeneric.start();
+  _item(String str, page, String routeName) {
+    return Container(
+      child: RaisedButton(
+        onPressed: () {
+          if (byName) {
+            Navigator.pushNamed(context, routeName);
+          } else {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => page));
+          }
+        },
+        child: Text(str),
+      ),
+    );
   }
 }

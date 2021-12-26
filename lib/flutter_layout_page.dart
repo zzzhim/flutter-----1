@@ -19,6 +19,12 @@ class _FlutterLayoutPage extends State<FlutterLayoutPage> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Flutter 如何进行布局'),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back),
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,

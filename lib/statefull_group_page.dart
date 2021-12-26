@@ -25,6 +25,12 @@ class _StateFulGroup extends State<StateFulGroup> {
         home: Scaffold(
           appBar: AppBar(
             title: Text('StatelessWidget与基础组件'),
+            leading: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(Icons.arrow_back),
+            ),
           ),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: _currentIndex,
