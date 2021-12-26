@@ -3,6 +3,7 @@ import 'package:flutter_application_1/data_type.dart';
 import 'package:flutter_application_1/flutter_layout_page.dart';
 import 'package:flutter_application_1/function_learn.dart';
 import 'package:flutter_application_1/generic_learn.dart';
+import 'package:flutter_application_1/gesture_page.dart';
 import 'package:flutter_application_1/less_group_page.dart';
 import 'package:flutter_application_1/opp_learn.dart';
 import 'package:flutter_application_1/plugin_use.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
           'less': (BuildContext context) => LessGroupPage(),
           'ful': (BuildContext context) => StateFulGroup(),
           'layout': (BuildContext context) => FlutterLayoutPage(),
+          'gesture': (BuildContext context) => GesturePage(),
         });
   }
 }
@@ -78,6 +80,7 @@ class _RouteNavigatorState extends State<RouteNavigator> {
           _item('LessGroupPage', LessGroupPage(), 'less'),
           _item('StateFulGroup', StateFulGroup(), 'ful'),
           _item('FlutterLayoutPage', FlutterLayoutPage(), 'layout'),
+          _item('GesturePage', GesturePage(), 'gesture'),
         ],
       ),
     );
