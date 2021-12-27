@@ -25,7 +25,7 @@ class _LauncherPage extends State<LauncherPage> {
                 child: Text('打开应用'),
               ),
               RaisedButton(
-                onPressed: () => _launchURL(),
+                onPressed: () => _openMap(),
                 child: Text('打开地图'),
               )
             ],
