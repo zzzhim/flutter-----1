@@ -12,8 +12,62 @@ import 'package:flutter_application_1/plugin_use.dart';
 import 'package:flutter_application_1/statefull_group_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const DynamicTheme());
+  // runApp(const MyApp());
   // runApp(const FlutterLayoutPage());
+}
+
+class DynamicTheme extends StatefulWidget {
+  const DynamicTheme({Key? key}) : super(key: key);
+
+  @override
+  _DynamicTheme createState() => _DynamicTheme();
+}
+
+class _DynamicTheme extends State<DynamicTheme> {
+  Brightness brightness = Brightness.light;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          brightness: brightness,
+          primarySwatch: Colors.blue,
+        ),
+        // home: const RouteNavigator(title: 'Flutter 必备Dart基础'),
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('如何创建和使用Flutter的路由与导航'),
+          ),
+          body: Column(
+            children: <Widget>[
+              RaisedButton(
+                onPressed: () {
+                  setState(() {
+                    if (brightness == Brightness.dark) {
+                      brightness = Brightness.light;
+                    } else {
+                      brightness = Brightness.dark;
+                    }
+                  });
+                },
+                child: Text(brightness == Brightness.dark ? '切换日间' : '切换夜间'),
+              ),
+              RouteNavigator()
+            ],
+          ),
+        ),
+        routes: <String, WidgetBuilder>{
+          'plugin': (BuildContext context) => PluginUse(),
+          'less': (BuildContext context) => LessGroupPage(),
+          'ful': (BuildContext context) => StateFulGroup(),
+          'layout': (BuildContext context) => FlutterLayoutPage(),
+          'gesture': (BuildContext context) => GesturePage(),
+          'launch': (BuildContext context) => LauncherPage(),
+          'lifecycle': (BuildContext context) => AppLifecycle(),
+        });
+  }
 }
 
 class MyApp extends StatelessWidget {
