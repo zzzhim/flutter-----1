@@ -8,6 +8,7 @@ import 'package:flutter_application_1/gesture_page.dart';
 import 'package:flutter_application_1/launcher_page.dart';
 import 'package:flutter_application_1/less_group_page.dart';
 import 'package:flutter_application_1/opp_learn.dart';
+import 'package:flutter_application_1/photo_app_page.dart';
 import 'package:flutter_application_1/plugin_use.dart';
 import 'package:flutter_application_1/statefull_group_page.dart';
 
@@ -66,6 +67,7 @@ class _DynamicTheme extends State<DynamicTheme> {
           'gesture': (BuildContext context) => GesturePage(),
           'launch': (BuildContext context) => LauncherPage(),
           'lifecycle': (BuildContext context) => AppLifecycle(),
+          'photo': (BuildContext context) => PhotoApp(),
         });
   }
 }
@@ -141,6 +143,7 @@ class _RouteNavigatorState extends State<RouteNavigator> {
           _item('GesturePage', GesturePage(), 'gesture'),
           _item('LauncherPage', LauncherPage(), 'launch'),
           _item('lifecycle', AppLifecycle(), 'lifecycle'),
+          _item('拍照APP', PhotoApp(), 'PhotoApp'),
         ],
       ),
     );
