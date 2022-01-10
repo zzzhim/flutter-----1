@@ -3,6 +3,8 @@ import 'package:flutter_application_1/navigator/tab_navigator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -14,6 +16,9 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String showResult = '';
+  String countString = '';
+  String localString = '';
+
   Future<CommonModel> fetchPost() async {
     // final http.Response response = await http.get(
     //   Uri.parse(
@@ -59,24 +64,47 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            InkWell(
-              onTap: () async {
-                fetchPost().then(
-                  (value) => setState(() {
-                    showResult = '请求结果：\nvalue: ${value.hideAppBar}';
-                  }),
-                );
-              },
-              child: Text(
-                '点我',
-                style: TextStyle(fontSize: 26),
+            RaisedButton(
+              onPressed: _incrementCounter,
+              child: Text('Increment Count'),
+            ),
+            RaisedButton(
+              onPressed: _getCounter,
+              child: Text('get Count'),
+            ),
+            Text(
+              countString,
+              style: TextStyle(
+                fontSize: 20,
               ),
             ),
-            Text(showResult),
+            Text(
+              localString,
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  _incrementCounter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      countString = countString + " 1";
+    });
+
+    int counter = (prefs.getInt('counter') ?? 0) + 1;
+    await prefs.setInt('counter', counter);
+  }
+
+  _getCounter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      localString = prefs.getInt('counter').toString();
+    });
   }
 }
 
