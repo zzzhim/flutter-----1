@@ -1,4 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/dao/home_dao.dart';
+import 'package:flutter_application_1/model/commom_model.dart';
+import 'package:flutter_application_1/model/home_model.dart';
+import 'package:flutter_application_1/widget/grid_nav.dart';
+import 'package:flutter_application_1/widget/local_nav.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
@@ -16,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   );
 
   double appBarAlpha = 0;
+  List<CommonModel> localNavList = [];
 
   final List _imageUrls = [
     'https://img.ciyuanji.com/files/2021/12/21/19070af18a294e17ab3ef686f557d918.jpg',
@@ -24,9 +32,17 @@ class _HomePageState extends State<HomePage> {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      backgroundColor: Color(0xfff2f2f2),
       body: Stack(
         children: [
           MediaQuery.removePadding(
@@ -57,12 +73,18 @@ class _HomePageState extends State<HomePage> {
                       pagination: SwiperPagination(),
                     ),
                   ),
-                  Container(
-                    height: 800,
-                    child: ListTile(
-                      title: Text('哈哈'),
-                    ),
-                  )
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                    child: LocalNav(localNavList: localNavList),
+                  ),
+
+                  // GridNav(gridNavModel: null),
+                  // Container(
+                  //   height: 300,
+                  //   child: ListTile(
+                  //     title: Text(resultString),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -97,5 +119,28 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       appBarAlpha = alpha;
     });
+  }
+
+  loadData() async {
+    // HomeDao.fetch().then((result) {
+    //   print("1");
+    //   print(json.encode(result.localNavList));
+    //   setState(() {
+    //     // resultString = jsonEncode(result);
+    //     // localNavList = result.localNavList ?? [];
+    //   });
+    // }).catchError((err) {
+    //   print(err);
+    // });
+    try {
+      HomeModel res = await HomeDao.fetch();
+
+      setState(() {
+        localNavList = res.localNavList ?? [];
+        // resultString = json.encode(res.config);
+      });
+    } catch (err) {
+      print(err);
+    }
   }
 }
