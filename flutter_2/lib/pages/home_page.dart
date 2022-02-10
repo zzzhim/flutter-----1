@@ -5,8 +5,11 @@ import 'package:flutter_application_1/dao/home_dao.dart';
 import 'package:flutter_application_1/model/commom_model.dart';
 import 'package:flutter_application_1/model/grid_nav_model.dart';
 import 'package:flutter_application_1/model/home_model.dart';
+import 'package:flutter_application_1/model/sales_box__model.dart';
 import 'package:flutter_application_1/widget/grid_nav.dart';
 import 'package:flutter_application_1/widget/local_nav.dart';
+import 'package:flutter_application_1/widget/sales_nav.dart';
+import 'package:flutter_application_1/widget/sub_nav.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
@@ -25,6 +28,8 @@ class _HomePageState extends State<HomePage> {
 
   double appBarAlpha = 0;
   List<CommonModel> localNavList = [];
+  List<CommonModel> subNavList = [];
+  SalesBoxModel? salesBox;
   GridNavModel? gridNavModel;
 
   final List _imageUrls = [
@@ -72,18 +77,25 @@ class _HomePageState extends State<HomePage> {
                         _imageUrls[index],
                         fit: BoxFit.fill,
                       ),
-                      pagination: SwiperPagination(),
+                      pagination: const SwiperPagination(),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                    padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
                     child: LocalNav(localNavList: localNavList),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                    padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
                     child: GridNav(gridNavModel: gridNavModel),
                   ),
-
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
+                    child: SubNav(subNavList: subNavList),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
+                    child: SalesBox(salesBox: salesBox),
+                  ),
                   // gridNavModel != null
                   //     ? GridNav(gridNavModel: gridNavModel!)
                   //     : Container(),
@@ -101,8 +113,8 @@ class _HomePageState extends State<HomePage> {
             opacity: appBarAlpha,
             child: Container(
               height: 80,
-              decoration: BoxDecoration(color: Colors.white),
-              child: Center(
+              decoration: const BoxDecoration(color: Colors.white),
+              child: const Center(
                 child: Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: Text('首页'),
@@ -146,6 +158,8 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         localNavList = res.localNavList ?? [];
         gridNavModel = res.gridNav;
+        subNavList = res.subNavList ?? [];
+        salesBox = res.salesBox;
         // resultString = json.encode(res.config);
       });
     } catch (err) {
