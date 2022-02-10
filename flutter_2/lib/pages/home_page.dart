@@ -7,9 +7,11 @@ import 'package:flutter_application_1/model/grid_nav_model.dart';
 import 'package:flutter_application_1/model/home_model.dart';
 import 'package:flutter_application_1/model/sales_box__model.dart';
 import 'package:flutter_application_1/widget/grid_nav.dart';
+import 'package:flutter_application_1/widget/loading_container.dart';
 import 'package:flutter_application_1/widget/local_nav.dart';
 import 'package:flutter_application_1/widget/sales_nav.dart';
 import 'package:flutter_application_1/widget/sub_nav.dart';
+import 'package:flutter_application_1/widget/webview.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
@@ -29,20 +31,99 @@ class _HomePageState extends State<HomePage> {
   double appBarAlpha = 0;
   List<CommonModel> localNavList = [];
   List<CommonModel> subNavList = [];
+  List<CommonModel> bannerList = [];
   SalesBoxModel? salesBox;
   GridNavModel? gridNavModel;
+  bool _loading = true;
 
-  final List _imageUrls = [
-    'https://img.ciyuanji.com/files/2021/12/21/19070af18a294e17ab3ef686f557d918.jpg',
-    'https://img.ciyuanji.com/files/2021/12/21/0a92c623732044558f19ebe2f7af8bc1.jpg',
-    'https://img.ciyuanji.com/files/2021/12/31/f6249fd270b74b75b2b86d6cd7307625.png',
-  ];
+  Widget get _banner {
+    return Container(
+      height: 150,
+      child: Swiper(
+        itemCount: bannerList.length,
+        autoplay: true,
+        autoplayDelay: 3000,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return WebViewWidget(
+                      url: bannerList[index].url!,
+                      title: bannerList[index].title!,
+                    );
+                  },
+                ),
+              );
+            },
+            child: Image.network(
+              bannerList[index].icon!,
+              fit: BoxFit.fill,
+            ),
+          );
+        },
+        pagination: const SwiperPagination(),
+      ),
+    );
+  }
+
+  Widget get _listView {
+    return ListView(
+      children: <Widget>[
+        _banner,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
+          child: LocalNav(localNavList: localNavList),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
+          child: GridNav(gridNavModel: gridNavModel),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
+          child: SubNav(subNavList: subNavList),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
+          child: SalesBox(salesBox: salesBox),
+        ),
+        // gridNavModel != null
+        //     ? GridNav(gridNavModel: gridNavModel!)
+        //     : Container(),
+        Container(
+          height: 300,
+          child: ListTile(
+            // title: Text(resultString),
+            title: Text(""),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget get _appBar {
+    return Opacity(
+      opacity: appBarAlpha,
+      child: Container(
+        height: 80,
+        decoration: const BoxDecoration(color: Colors.white),
+        child: const Center(
+          child: Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: Text('首页'),
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    loadData();
+    _handleRefresh();
   }
 
   @override
@@ -50,79 +131,33 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement build
     return Scaffold(
       backgroundColor: Color(0xfff2f2f2),
-      body: Stack(
-        children: [
-          MediaQuery.removePadding(
-            removeTop: true,
-            context: context,
-            // 监听列表滚动
-            child: NotificationListener(
-              onNotification: (notification) {
-                if (notification is ScrollUpdateNotification &&
-                    notification.depth == 0) {
-                  _onScroll(notification.metrics.pixels);
-                }
+      body: LoadingContainer(
+        isLoading: _loading,
+        child: Stack(
+          children: [
+            MediaQuery.removePadding(
+              removeTop: true,
+              context: context,
+              // 下拉刷新
+              child: RefreshIndicator(
+                onRefresh: _handleRefresh,
+                // 监听列表滚动
+                child: NotificationListener(
+                  onNotification: (notification) {
+                    if (notification is ScrollUpdateNotification &&
+                        notification.depth == 0) {
+                      _onScroll(notification.metrics.pixels);
+                    }
 
-                return true;
-              },
-              child: ListView(
-                children: <Widget>[
-                  Container(
-                    height: 150,
-                    child: Swiper(
-                      itemCount: _imageUrls.length,
-                      autoplay: true,
-                      autoplayDelay: 3000,
-                      itemBuilder: (context, index) => Image.network(
-                        _imageUrls[index],
-                        fit: BoxFit.fill,
-                      ),
-                      pagination: const SwiperPagination(),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
-                    child: LocalNav(localNavList: localNavList),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
-                    child: GridNav(gridNavModel: gridNavModel),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
-                    child: SubNav(subNavList: subNavList),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
-                    child: SalesBox(salesBox: salesBox),
-                  ),
-                  // gridNavModel != null
-                  //     ? GridNav(gridNavModel: gridNavModel!)
-                  //     : Container(),
-                  // Container(
-                  //   height: 300,
-                  //   child: ListTile(
-                  //     title: Text(resultString),
-                  //   ),
-                  // ),
-                ],
-              ),
-            ),
-          ),
-          Opacity(
-            opacity: appBarAlpha,
-            child: Container(
-              height: 80,
-              decoration: const BoxDecoration(color: Colors.white),
-              child: const Center(
-                child: Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: Text('首页'),
+                    return false;
+                  },
+                  child: _listView,
                 ),
               ),
             ),
-          ),
-        ],
+            _appBar,
+          ],
+        ),
       ),
     );
   }
@@ -141,17 +176,37 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  loadData() async {
-    // HomeDao.fetch().then((result) {
-    //   print("1");
-    //   print(json.encode(result.localNavList));
-    //   setState(() {
-    //     // resultString = jsonEncode(result);
-    //     // localNavList = result.localNavList ?? [];
-    //   });
-    // }).catchError((err) {
-    //   print(err);
-    // });
+  // loadData() async {
+  //   // HomeDao.fetch().then((result) {
+  //   //   print("1");
+  //   //   print(json.encode(result.localNavList));
+  //   //   setState(() {
+  //   //     // resultString = jsonEncode(result);
+  //   //     // localNavList = result.localNavList ?? [];
+  //   //   });
+  //   // }).catchError((err) {
+  //   //   print(err);
+  //   // });
+  //   try {
+  //     HomeModel res = await HomeDao.fetch();
+
+  //     setState(() {
+  //       localNavList = res.localNavList ?? [];
+  //       gridNavModel = res.gridNav;
+  //       subNavList = res.subNavList ?? [];
+  //       salesBox = res.salesBox;
+  //       _loading = false;
+  //       // resultString = json.encode(res.config);
+  //     });
+  //   } catch (err) {
+  //     print(err);
+  //     setState(() {
+  //       _loading = false;
+  //     });
+  //   }
+  // }
+
+  Future<Null> _handleRefresh() async {
     try {
       HomeModel res = await HomeDao.fetch();
 
@@ -159,11 +214,18 @@ class _HomePageState extends State<HomePage> {
         localNavList = res.localNavList ?? [];
         gridNavModel = res.gridNav;
         subNavList = res.subNavList ?? [];
+        bannerList = res.bannerList ?? [];
         salesBox = res.salesBox;
+        _loading = false;
         // resultString = json.encode(res.config);
       });
     } catch (err) {
       print(err);
+      setState(() {
+        _loading = false;
+      });
     }
+
+    return null;
   }
 }
