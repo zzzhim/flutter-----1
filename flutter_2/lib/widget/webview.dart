@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/widget/grid_nav.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 final CATCH_URLS = [
@@ -106,12 +107,17 @@ class _WebViewWidget extends State<WebViewWidget> {
     }
 
     return Container(
+      color: backgroundColor,
+      padding: EdgeInsets.fromLTRB(0, 40, 0, 10),
       // 撑满屏幕宽度
       child: FractionallySizedBox(
         widthFactor: 1, // 撑满布局
         child: Stack(
           children: [
             GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
               child: Container(
                 margin: EdgeInsets.only(
                   left: 10,
@@ -124,11 +130,13 @@ class _WebViewWidget extends State<WebViewWidget> {
               ),
             ),
             Positioned(
+              top: 0,
               left: 0,
               right: 0,
+              bottom: 0,
               child: Center(
                 child: Text(
-                  widget.title ?? '',
+                  widget.title ?? "",
                   style: TextStyle(color: backBtnColor, fontSize: 20),
                 ),
               ),

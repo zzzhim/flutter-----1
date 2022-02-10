@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/dao/home_dao.dart';
 import 'package:flutter_application_1/model/commom_model.dart';
+import 'package:flutter_application_1/model/grid_nav_model.dart';
 import 'package:flutter_application_1/model/home_model.dart';
 import 'package:flutter_application_1/widget/grid_nav.dart';
 import 'package:flutter_application_1/widget/local_nav.dart';
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> {
 
   double appBarAlpha = 0;
   List<CommonModel> localNavList = [];
+  GridNavModel? gridNavModel;
 
   final List _imageUrls = [
     'https://img.ciyuanji.com/files/2021/12/21/19070af18a294e17ab3ef686f557d918.jpg',
@@ -77,8 +79,14 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
                     child: LocalNav(localNavList: localNavList),
                   ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                    child: GridNav(gridNavModel: gridNavModel),
+                  ),
 
-                  // GridNav(gridNavModel: null),
+                  // gridNavModel != null
+                  //     ? GridNav(gridNavModel: gridNavModel!)
+                  //     : Container(),
                   // Container(
                   //   height: 300,
                   //   child: ListTile(
@@ -137,6 +145,7 @@ class _HomePageState extends State<HomePage> {
 
       setState(() {
         localNavList = res.localNavList ?? [];
+        gridNavModel = res.gridNav;
         // resultString = json.encode(res.config);
       });
     } catch (err) {
