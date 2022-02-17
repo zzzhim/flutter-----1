@@ -1,6 +1,6 @@
-# flutter_application_1
+# asr_plugin_example
 
-A new Flutter project.
+Demonstrates how to use the asr_plugin plugin.
 
 ## Getting Started
 
@@ -14,7 +14,3 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
-
-创建插件 flutter create --org org.devio --template=plugin asr_plugin
-
-创建包 flutter create --template=package flutter_color_plugin
