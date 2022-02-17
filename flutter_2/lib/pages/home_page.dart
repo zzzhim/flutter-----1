@@ -6,6 +6,7 @@ import 'package:flutter_application_1/model/commom_model.dart';
 import 'package:flutter_application_1/model/grid_nav_model.dart';
 import 'package:flutter_application_1/model/home_model.dart';
 import 'package:flutter_application_1/model/sales_box__model.dart';
+import 'package:flutter_application_1/pages/search_page.dart';
 import 'package:flutter_application_1/widget/grid_nav.dart';
 import 'package:flutter_application_1/widget/loading_container.dart';
 import 'package:flutter_application_1/widget/local_nav.dart';
@@ -277,7 +278,16 @@ class _HomePageState extends State<HomePage> {
     return null;
   }
 
-  void _jumpToSearch() {}
+  void _jumpToSearch() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const SearchPage(
+          hint: SEARCH_BAR_DEFAULT_TEXT,
+        ),
+      ),
+    );
+  }
 
   void _jumpToSpeak() {}
 }
