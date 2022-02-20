@@ -54,12 +54,13 @@ class _TabNavigatorState extends State<TabNavigator> {
               Icons.home,
               color: _activeColor,
             ),
-            title: Text(
-              '首页',
-              style: TextStyle(
-                color: _currentIndex == 0 ? _activeColor : _defaultColor,
-              ),
-            ),
+            label: '首页',
+            // title: Text(
+            //   '首页',
+            //   style: TextStyle(
+            //     color: _currentIndex == 0 ? _activeColor : _defaultColor,
+            //   ),
+            // ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -70,12 +71,13 @@ class _TabNavigatorState extends State<TabNavigator> {
               Icons.search,
               color: _activeColor,
             ),
-            title: Text(
-              '搜索',
-              style: TextStyle(
-                color: _currentIndex == 1 ? _activeColor : _defaultColor,
-              ),
-            ),
+            label: '搜索',
+            // title: Text(
+            //   '搜索',
+            //   style: TextStyle(
+            //     color: _currentIndex == 1 ? _activeColor : _defaultColor,
+            //   ),
+            // ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -86,12 +88,13 @@ class _TabNavigatorState extends State<TabNavigator> {
               Icons.camera_alt,
               color: _activeColor,
             ),
-            title: Text(
-              '旅拍',
-              style: TextStyle(
-                color: _currentIndex == 2 ? _activeColor : _defaultColor,
-              ),
-            ),
+            label: '旅拍',
+            // title: Text(
+            //   '旅拍',
+            //   style: TextStyle(
+            //     color: _currentIndex == 2 ? _activeColor : _defaultColor,
+            //   ),
+            // ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -102,12 +105,13 @@ class _TabNavigatorState extends State<TabNavigator> {
               Icons.account_circle,
               color: _activeColor,
             ),
-            title: Text(
-              '我的',
-              style: TextStyle(
-                color: _currentIndex == 3 ? _activeColor : _defaultColor,
-              ),
-            ),
+            label: '我的',
+            // title: Text(
+            //   '我的',
+            //   style: TextStyle(
+            //     color: _currentIndex == 3 ? _activeColor : _defaultColor,
+            //   ),
+            // ),
           ),
         ],
       ),
